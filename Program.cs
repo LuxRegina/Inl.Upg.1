@@ -23,7 +23,7 @@
         }
         static void Main(string[] args)
         {
-            string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
+            string defaultFile ="dict\\sweeng.lis";
             Console.WriteLine("Welcome to the dictionary app!\n Write 'help' for a list of commands.");
             do
             {
@@ -39,31 +39,13 @@
                 {
                     if (argument.Length == 2)
                     {
-                        using (StreamReader textfile = new StreamReader(argument[1]))   // ToDo - Catch if file isnt found
-                        {
-                            dictionary = new List<SweEngGloss>(); // Prevents duplication if multiple loadouts are made!
-                            string line = textfile.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = textfile.ReadLine();
-                            }
-                        }
+                        string lastFileLoaded = argument[1];
+                        Load(lastFileLoaded);                    
                     }
                     else if (argument.Length == 1)
                     {
-                        using (StreamReader textfile = new StreamReader(defaultFile))     // ToDo - Catch if file isnt found
-                        {
-                            dictionary = new List<SweEngGloss>(); // Prevents duplication if multiple loadouts are made!
-                            string line = textfile.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = textfile.ReadLine();
-                            }
-                        } // Close file?
+                        string lastFileLoaded = defaultFile;
+                        Load(lastFileLoaded);                        
                     }
                 }
                 else if (command == "list")                                         // NYI - Try-Catch if trying to list before loading a file
@@ -155,6 +137,20 @@
                         "'translate'--- translate a word.\n" +
                         "'delete'------ delete a word in the dictionary.\n" +
                         "'quit'-------- ends the program.");
+        }
+        private static void Load(string lastFileLoaded)
+        {
+            using (StreamReader textfile = new StreamReader(lastFileLoaded))     // ToDo - Catch if file isnt found
+            {
+                dictionary = new List<SweEngGloss>(); // Prevents duplication if multiple loadouts are made!
+                string line = textfile.ReadLine();
+                while (line != null)
+                {
+                    SweEngGloss gloss = new SweEngGloss(line);
+                    dictionary.Add(gloss);
+                    line = textfile.ReadLine();
+                }
+            }
         }
         private static void ListAll()
         {
