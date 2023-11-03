@@ -97,24 +97,14 @@
                 {
                     if (argument.Length == 2)
                     {
-                        foreach (SweEngGloss gloss in dictionary)
-                        {
-                            if (gloss.word_swe == argument[1])
-                                Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == argument[1])
-                                Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
-                        }                                                                                   // NYI - Catch if word(s) requested isnt in file
+                        string transWord = argument[1];
+                        Translate(transWord);
+                                                                                              // NYI - Catch if word(s) requested isnt in file
                     }
                     else if (argument.Length == 1)
                     {
                         string transWord = Input("Write what word to translate: ");
-                        foreach (SweEngGloss gloss in dictionary)
-                        {
-                            if (gloss.word_swe == transWord)
-                                Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == transWord)
-                                Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
-                        }                                                                                   // NYI - Catch if word(s) requested isnt in file
+                        Translate(transWord);                                                 // NYI - Catch if word(s) requested isnt in file
                     }
                 }
                 else if (command == "quit")
@@ -157,6 +147,16 @@
             foreach (SweEngGloss gloss in dictionary)
             {
                 Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+            }
+        }
+        private static void Translate(string transWord)
+        {
+            foreach (SweEngGloss gloss in dictionary)
+            {
+                if (gloss.word_swe == transWord)
+                    Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
+                if (gloss.word_eng == transWord)
+                    Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
             }
         }
     }
