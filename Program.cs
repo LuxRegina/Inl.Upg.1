@@ -68,10 +68,7 @@
                 }
                 else if (command == "list")                                         // NYI - Try-Catch if trying to list before loading a file
                 {
-                    foreach (SweEngGloss gloss in dictionary)
-                    {
-                        Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
-                    }
+                    ListAll();
                 }
                 else if (command == "new")
                 {
@@ -159,6 +156,12 @@
                         "'delete'------ delete a word in the dictionary.\n" +
                         "'quit'-------- ends the program.");
         }
-
+        private static void ListAll()
+        {
+            foreach (SweEngGloss gloss in dictionary)
+            {
+                Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+            }
+        }
     }
 }
