@@ -36,29 +36,29 @@
                 {
                     if(argument.Length == 2)
                     {
-                        using (StreamReader sr = new StreamReader(argument[1]))   // ToDo - sr - new name  and Catch if file isnt found
+                        using (StreamReader textfile = new StreamReader(argument[1]))   // ToDo - Catch if file isnt found
                         {
                             dictionary = new List<SweEngGloss>(); // Prevents duplication if multiple loadouts are made!
-                            string line = sr.ReadLine();
+                            string line = textfile.ReadLine();
                             while (line != null)
                             {
                                 SweEngGloss gloss = new SweEngGloss(line);
                                 dictionary.Add(gloss);
-                                line = sr.ReadLine();
+                                line = textfile.ReadLine();
                             }
                         }
                     }
                     else if(argument.Length == 1)
                     {
-                        using (StreamReader sr = new StreamReader(defaultFile))     // ToDo - sr - new name  and Catch if file isnt found
+                        using (StreamReader textfile = new StreamReader(defaultFile))     // ToDo - Catch if file isnt found
                         {
                             dictionary = new List<SweEngGloss>(); // Prevents duplication if multiple loadouts are made!
-                            string line = sr.ReadLine();
+                            string line = textfile.ReadLine();
                             while (line != null)
                             {
                                 SweEngGloss gloss = new SweEngGloss(line);
                                 dictionary.Add(gloss);
-                                line = sr.ReadLine();
+                                line = textfile.ReadLine();
                             }
                         } // Close file?
                     }
@@ -79,10 +79,10 @@
                     else if(argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();                          // ToDo - new variable for s
+                        string sweWord = Console.ReadLine();                          
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();                          // ToDo - new variable for e
-                        dictionary.Add(new SweEngGloss(s, e));
+                        string engWord = Console.ReadLine();                          
+                        dictionary.Add(new SweEngGloss(sweWord, engWord));
                     }
                 }
                 else if (command == "delete")
@@ -100,14 +100,14 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();                      // ToDo - new variable for s
+                        string sweWord = Console.ReadLine();                      
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();                      // ToDo - new variable for e
+                        string engWord = Console.ReadLine();                      
                         int index = -1;
                         for (int i = 0; i < dictionary.Count; i++)
                         {
                             SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == s && gloss.word_eng == e)
+                            if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
                                 index = i;
                         }
                         dictionary.RemoveAt(index);
@@ -128,12 +128,12 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word to be translated: ");
-                        string s = Console.ReadLine();                          // ToDo - new variable for s
+                        string transWord = Console.ReadLine();                          
                         foreach (SweEngGloss gloss in dictionary)
                         {
-                            if (gloss.word_swe == s)
+                            if (gloss.word_swe == transWord)
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == s)
+                            if (gloss.word_eng == transWord)
                                 Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
                         }                                                                                   // NYI - Catch if word(s) requested isnt in file
                     }
