@@ -22,15 +22,21 @@
         static void Main(string[] args)
         {
             string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
-            Console.WriteLine("Welcome to the dictionary app!");    // ToDo - add write help for commands and load which file to work with
+            Console.WriteLine("Welcome to the dictionary app!\n Write 'help' for a list of commands.");    // ToDo - add write help for commands and load which file to work with
             do
             {
                 Console.Write("> ");
                 string[] argument = Console.ReadLine().Split();     
                 string command = argument[0];
-                if (command == "quit")                              // ToDo - add 'Help' command
+                if (command == "help")                            
                 {
-                    Console.WriteLine("Goodbye!");                  
+                    Console.WriteLine("Available commands:\n" +
+                        "'load'-------- load in the file you want to work with.\n" +
+                        "'list'-------- list all words in the dictionary.\n" +
+                        "'new'--------- add word to dictionary.\n" +
+                        "'translate'--- translate a word.\n" +
+                        "'delete'------ delete a word in the dictionary.\n" +
+                        "'quit'-------- ends the program.");                  
                 }
                 else if (command == "load")
                 {
@@ -137,6 +143,10 @@
                                 Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
                         }                                                                                   // NYI - Catch if word(s) requested isnt in file
                     }
+                }
+                else if (command == "quit")                              
+                {
+                    Console.WriteLine("Goodbye!");
                 }
                 else
                 {
