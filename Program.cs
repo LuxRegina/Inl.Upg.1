@@ -16,18 +16,21 @@
                 this.word_swe = words[0]; this.word_eng = words[1];
             }
         }
-
-                                                                    // ToDo - Add Input method
-
+        static string Input(string prompt)
+        {
+            Console.Write(prompt);
+            return Console.ReadLine();
+        }                                                                
         static void Main(string[] args)
         {
             string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
-            Console.WriteLine("Welcome to the dictionary app!\n Write 'help' for a list of commands.");    // ToDo - add write help for commands and load which file to work with
+            Console.WriteLine("Welcome to the dictionary app!\n Write 'help' for a list of commands.");
             do
             {
                 Console.Write("> ");
-                string[] argument = Console.ReadLine().Split();     
-                string command = argument[0];
+                string[] argument = Console.ReadLine().Split();
+                string command =  argument[0];
+
                 if (command == "help")                            
                 {
                     Console.WriteLine("Available commands:\n" +
@@ -83,11 +86,9 @@
                         dictionary.Add(new SweEngGloss(argument[1], argument[2]));  // ToDo - CW state swedish word first
                     }
                     else if(argument.Length == 1)
-                    {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string sweWord = Console.ReadLine();                          
-                        Console.Write("Write word in English: ");
-                        string engWord = Console.ReadLine();                          
+                    {                       
+                        string sweWord = Input("Write word in Swedish: ");                          
+                        string engWord = Input("Write word in English: ");                          
                         dictionary.Add(new SweEngGloss(sweWord, engWord));
                     }
                 }
@@ -105,10 +106,8 @@
                     }
                     else if (argument.Length == 1)
                     {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string sweWord = Console.ReadLine();                      
-                        Console.Write("Write word in English: ");
-                        string engWord = Console.ReadLine();                      
+                        string sweWord = Input("Write word in Swedish: ");
+                        string engWord = Input("Write word in English: ");
                         int index = -1;
                         for (int i = 0; i < dictionary.Count; i++)
                         {
@@ -132,9 +131,8 @@
                         }                                                                                   // NYI - Catch if word(s) requested isnt in file
                     }
                     else if (argument.Length == 1)
-                    {
-                        Console.WriteLine("Write word to be translated: ");
-                        string transWord = Console.ReadLine();                          
+                    {                        
+                        string transWord = Input("Write what word to translate: ");                          
                         foreach (SweEngGloss gloss in dictionary)
                         {
                             if (gloss.word_swe == transWord)
