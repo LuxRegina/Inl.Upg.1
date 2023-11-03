@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        static List<SweEngGloss> dictionary = new List<SweEngGloss>();  
+        static List<SweEngGloss> dictionary = new List<SweEngGloss>();
         class SweEngGloss
         {
             public string word_swe, word_eng;
@@ -20,7 +20,7 @@
         {
             Console.Write(prompt);
             return Console.ReadLine();
-        }                                                                
+        }
         static void Main(string[] args)
         {
             string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
@@ -29,21 +29,15 @@
             {
                 Console.Write("> ");
                 string[] argument = Console.ReadLine().Split();
-                string command =  argument[0];
+                string command = argument[0];
 
-                if (command == "help")                            
+                if (command == "help")
                 {
-                    Console.WriteLine("Available commands:\n" +
-                        "'load'-------- load in the file you want to work with.\n" +
-                        "'list'-------- list all words in the dictionary.\n" +
-                        "'new'--------- add word to dictionary.\n" +
-                        "'translate'--- translate a word.\n" +
-                        "'delete'------ delete a word in the dictionary.\n" +
-                        "'quit'-------- ends the program.");                  
+                    Help();
                 }
                 else if (command == "load")
                 {
-                    if(argument.Length == 2)
+                    if (argument.Length == 2)
                     {
                         using (StreamReader textfile = new StreamReader(argument[1]))   // ToDo - Catch if file isnt found
                         {
@@ -57,7 +51,7 @@
                             }
                         }
                     }
-                    else if(argument.Length == 1)
+                    else if (argument.Length == 1)
                     {
                         using (StreamReader textfile = new StreamReader(defaultFile))     // ToDo - Catch if file isnt found
                         {
@@ -74,7 +68,7 @@
                 }
                 else if (command == "list")                                         // NYI - Try-Catch if trying to list before loading a file
                 {
-                    foreach(SweEngGloss gloss in dictionary)
+                    foreach (SweEngGloss gloss in dictionary)
                     {
                         Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
                     }
@@ -83,12 +77,13 @@
                 {
                     if (argument.Length == 3)
                     {
-                        dictionary.Add(new SweEngGloss(argument[1], argument[2]));  // ToDo - CW state swedish word first
+                        Console.WriteLine("Make sure you stated the swedish word before the english word.");
+                        dictionary.Add(new SweEngGloss(argument[1], argument[2]));
                     }
-                    else if(argument.Length == 1)
-                    {                       
-                        string sweWord = Input("Write word in Swedish: ");                          
-                        string engWord = Input("Write word in English: ");                          
+                    else if (argument.Length == 1)
+                    {
+                        string sweWord = Input("Write word in Swedish: ");
+                        string engWord = Input("Write word in English: ");
                         dictionary.Add(new SweEngGloss(sweWord, engWord));
                     }
                 }
@@ -97,7 +92,8 @@
                     if (argument.Length == 3)
                     {
                         int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) {
+                        for (int i = 0; i < dictionary.Count; i++)
+                        {
                             SweEngGloss gloss = dictionary[i];
                             if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
                                 index = i;
@@ -122,7 +118,7 @@
                 {
                     if (argument.Length == 2)
                     {
-                        foreach(SweEngGloss gloss in dictionary)
+                        foreach (SweEngGloss gloss in dictionary)
                         {
                             if (gloss.word_swe == argument[1])
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
@@ -131,8 +127,8 @@
                         }                                                                                   // NYI - Catch if word(s) requested isnt in file
                     }
                     else if (argument.Length == 1)
-                    {                        
-                        string transWord = Input("Write what word to translate: ");                          
+                    {
+                        string transWord = Input("Write what word to translate: ");
                         foreach (SweEngGloss gloss in dictionary)
                         {
                             if (gloss.word_swe == transWord)
@@ -142,7 +138,7 @@
                         }                                                                                   // NYI - Catch if word(s) requested isnt in file
                     }
                 }
-                else if (command == "quit")                              
+                else if (command == "quit")
                 {
                     Console.WriteLine("Goodbye!");
                 }
@@ -153,6 +149,16 @@
             }
             while (true);
         }
-                    // NYI - Add methods/functions for all arguments
+        private static void Help()            // NYI - Add methods/functions for all arguments
+        {
+            Console.WriteLine("Available commands:\n" +
+                        "'load'-------- load in the file you want to work with.\n" +
+                        "'list'-------- list all words in the dictionary.\n" +
+                        "'new'--------- add word to dictionary.\n" +
+                        "'translate'--- translate a word.\n" +
+                        "'delete'------ delete a word in the dictionary.\n" +
+                        "'quit'-------- ends the program.");
+        }
+
     }
 }
