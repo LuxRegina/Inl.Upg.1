@@ -76,7 +76,7 @@
                         string sweWord = argument[1];
                         string engWord = argument[2];
 
-                        Delete(sweWord, engWord);                       // NYI Catch if word requested isnt in the file
+                        Delete(sweWord, engWord);
                     }
                     else if (argument.Length == 1)
                     {
@@ -85,6 +85,8 @@
 
                         Delete(sweWord, engWord);
                     }
+                    else if (argument.Length == 2)
+                    { Console.WriteLine("Please type in both translations of the word to delete it."); }
                 }
                 else if (command == "translate")
                 {
@@ -176,14 +178,22 @@
         }
         private static void Delete(string sweWord, string engWord)
         {
-            int index = -1;
-            for (int i = 0; i < dictionary.Count; i++)
+            try
             {
-                SweEngGloss gloss = dictionary[i];
-                if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
-                    index = i;
+                int index = -1;
+                for (int i = 0; i < dictionary.Count; i++)
+                {
+                    SweEngGloss gloss = dictionary[i];
+                    if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
+                        index = i;
+                }
+                dictionary.RemoveAt(index);                             
             }
-            dictionary.RemoveAt(index);                             // NYI If no word is given, catch index out of bounds.
+           catch (System.ArgumentOutOfRangeException) {
+
+                Console.WriteLine("Word doesnt exist in dictionary.");
+            }
+
         }
     }
 }
