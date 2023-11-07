@@ -57,13 +57,18 @@
                     if (argument.Length == 3)
                     {
                         Console.WriteLine("Make sure you stated the swedish word before the english word.");
-                        dictionary.Add(new SweEngGloss(argument[1], argument[2]));
+                        string sweWord = argument[1];
+                        string engWord = argument[2];
+                        New(sweWord, engWord);
+                        
+                        
                     }
                     else if (argument.Length == 1)
                     {
                         string sweWord = Input("Write word in Swedish: ");
                         string engWord = Input("Write word in English: ");
-                        dictionary.Add(new SweEngGloss(sweWord, engWord));
+
+                        New(sweWord, engWord);          
                     }
                 }
                 else if (command == "delete")
@@ -118,6 +123,7 @@
             }
             while (true);
         }
+               
         private static void Help()            // NYI - Add methods/functions for all arguments
         {
             Console.WriteLine("Available commands:\n" +
@@ -158,6 +164,10 @@
                 if (gloss.word_eng == transWord)
                     Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
             }
+        }
+        private static void New(string sweWord, string engWord)
+        {
+            dictionary.Add(new SweEngGloss(sweWord, engWord));
         }
     }
 }
