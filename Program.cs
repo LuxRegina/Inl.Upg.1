@@ -123,17 +123,28 @@
         }
         private static void Load(string lastFileLoaded)
         {
-            using (StreamReader textfile = new StreamReader(lastFileLoaded))     // ToDo - Catch if file isnt found
+            try
             {
-                dictionary = new List<SweEngGloss>(); // Prevents duplication if multiple loadouts are made!
-                string line = textfile.ReadLine();
-                while (line != null)
+                using (StreamReader textfile = new StreamReader(lastFileLoaded))
                 {
-                    SweEngGloss gloss = new SweEngGloss(line);
-                    dictionary.Add(gloss);
-                    line = textfile.ReadLine();
+                    dictionary = new List<SweEngGloss>(); // Prevents duplication if multiple loadouts are made!
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+                    string line = textfile.ReadLine();
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+                    while (line != null)
+                    {
+                        SweEngGloss gloss = new SweEngGloss(line);
+                        dictionary.Add(gloss);
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+                        line = textfile.ReadLine();
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+                    }
                 }
+            } catch (System.IO.FileNotFoundException)
+            {
+                Console.WriteLine("File could not be found, did you type it in correctly?");
             }
+
         }
         private static void ListAll()
         {
