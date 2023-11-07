@@ -19,7 +19,9 @@
         static string Input(string prompt)
         {
             Console.Write(prompt);
+#pragma warning disable CS8603 // Possible null reference return.
             return Console.ReadLine();
+#pragma warning restore CS8603 // Possible null reference return.
         }
         static void Main(string[] args)
         {
@@ -28,7 +30,9 @@
             do
             {
                 Console.Write("> ");
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 string[] argument = Console.ReadLine().Split();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                 string command = argument[0];
 
                 if (command == "help")
