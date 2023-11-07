@@ -91,13 +91,12 @@
                     if (argument.Length == 2)
                     {
                         string transWord = argument[1];
-                        Translate(transWord);
-                                                                                              // NYI - Catch if word(s) requested isnt in file
+                        Translate(transWord);                                                                                             
                     }
                     else if (argument.Length == 1)
                     {
                         string transWord = Input("Write what word to translate: ");
-                        Translate(transWord);                                                 // NYI - Catch if word(s) requested isnt in file
+                        Translate(transWord);                                                 
                     }
                 }
                 else if (command == "quit")
@@ -111,7 +110,7 @@
             }
             while (true);
         }
-        private static void Help()            // NYI - Add methods/functions for all arguments
+        private static void Help()            
         {
             Console.WriteLine("Available commands:\n" +
                         "'load'-------- load in the file you want to work with.\n" +
@@ -155,13 +154,21 @@
         }
         private static void Translate(string transWord)
         {
+            bool found = false;
             foreach (SweEngGloss gloss in dictionary)
             {
                 if (gloss.word_swe == transWord)
+                { 
+                    found = true; 
                     Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
+                }
                 if (gloss.word_eng == transWord)
+                {
+                    found = true;
                     Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
+                }
             }
+            if (!found) Console.WriteLine("Word not in dictionary.");
         }
         private static void New(string sweWord, string engWord)
         {
