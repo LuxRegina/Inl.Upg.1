@@ -52,7 +52,7 @@
                         Load(lastFileLoaded);                        
                     }
                 }
-                else if (command == "list")                                         // NYI - Try-Catch if trying to list before loading a file
+                else if (command == "list")                                    // NYI - Try-Catch if trying to list before loading a file
                 {
                     ListAll();
                 }
@@ -149,7 +149,6 @@
             {
                 Console.WriteLine("File could not be found, did you type it in correctly?");
             }
-
         }
         private static void ListAll()
         {
@@ -197,7 +196,6 @@
 
                 Console.WriteLine("Word doesnt exist in dictionary.");
             }
-
         }
     }
 }
