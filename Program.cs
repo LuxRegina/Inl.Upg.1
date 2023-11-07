@@ -60,8 +60,6 @@
                         string sweWord = argument[1];
                         string engWord = argument[2];
                         New(sweWord, engWord);
-                        
-                        
                     }
                     else if (argument.Length == 1)
                     {
@@ -75,27 +73,17 @@
                 {
                     if (argument.Length == 3)
                     {
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++)
-                        {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index);                            // NYI Catch if word requested isnt in the file
+                        string sweWord = argument[1];
+                        string engWord = argument[2];
+
+                        Delete(sweWord, engWord);                       // NYI Catch if word requested isnt in the file
                     }
                     else if (argument.Length == 1)
                     {
                         string sweWord = Input("Write word in Swedish: ");
                         string engWord = Input("Write word in English: ");
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++)
-                        {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index);
+
+                        Delete(sweWord, engWord);
                     }
                 }
                 else if (command == "translate")
@@ -123,7 +111,6 @@
             }
             while (true);
         }
-               
         private static void Help()            // NYI - Add methods/functions for all arguments
         {
             Console.WriteLine("Available commands:\n" +
@@ -168,6 +155,17 @@
         private static void New(string sweWord, string engWord)
         {
             dictionary.Add(new SweEngGloss(sweWord, engWord));
+        }
+        private static void Delete(string sweWord, string engWord)
+        {
+            int index = -1;
+            for (int i = 0; i < dictionary.Count; i++)
+            {
+                SweEngGloss gloss = dictionary[i];
+                if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
+                    index = i;
+            }
+            dictionary.RemoveAt(index);                             // NYI If no word is given, catch index out of bounds.
         }
     }
 }
